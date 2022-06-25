@@ -1,7 +1,7 @@
 package routes
 
 import (
-	controller "user-authentication-golang/controllers"
+	controller "MoxieJWTauthorization/controllers"
 
 	"github.com/gin-gonic/gin"
 )

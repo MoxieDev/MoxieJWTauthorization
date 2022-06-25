@@ -11,10 +11,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 
-	"user-authentication-golang/database"
+	"MoxieJWTauthorization/database"
 
-	helper "user-authentication-golang/helpers"
-	"user-authentication-golang/models"
+	helper "MoxieJWTauthorization/helpers"
+	"MoxieJWTauthorization/models"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -93,8 +93,12 @@ func SignUp() gin.HandlerFunc {
 		user.Created_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 		user.Updated_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 		user.ID = primitive.NewObjectID()
-		user.User_id = user.ID.Hex()
-		token, refreshToken, _ := helper.GenerateAllTokens(*user.Email, *user.First_name, *user.Last_name, user.User_id)
+		
+		// Get the user_id 
+		var s string = user.ID.Hex()
+		user.User_id = &s
+
+		token, refreshToken, _ := helper.GenerateAllTokens(*user.Email, *user.First_name, *user.Last_name, *user.User_id)
 		user.Token = &token
 		user.Refresh_token = &refreshToken
 
@@ -137,9 +141,9 @@ func Login() gin.HandlerFunc {
 			return
 		}
 
-		token, refreshToken, _ := helper.GenerateAllTokens(*foundUser.Email, *foundUser.First_name, *foundUser.Last_name, foundUser.User_id)
+		token, refreshToken, _ := helper.GenerateAllTokens(*foundUser.Email, *foundUser.First_name, *foundUser.Last_name, *foundUser.User_id)
 
-		helper.UpdateAllTokens(token, refreshToken, foundUser.User_id)
+		helper.UpdateAllTokens(token, refreshToken, *foundUser.User_id)
 
 		c.JSON(http.StatusOK, foundUser)
 

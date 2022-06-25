@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	helper "user-authentication-golang/helpers"
+	helper "MoxieJWTauthorization/helpers"
 
 	"github.com/gin-gonic/gin"
 )

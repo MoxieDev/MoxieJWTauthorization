@@ -9,7 +9,7 @@ import (
 
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodv.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 //DBinstance func
@@ -21,6 +21,7 @@ func DBinstance() *mongo.Client {
 	}
 
 	MongoDB := os.Getenv("MONGODB_URL")
+	fmt.Println(MongoDB)
 
 	client, err := mongo.NewClient(options.Client().ApplyURI(MongoDB))
 	if err != nil {

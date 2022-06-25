@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	middleware "user-authentication-golang/middleware"
-	routes "user-authentication-golang/routes"
+	middleware "MoxieJWTauthorization/middleware"
+	routes "MoxieJWTauthorization/routes"
 
 	"github.com/gin-gonic/gin"
 )
